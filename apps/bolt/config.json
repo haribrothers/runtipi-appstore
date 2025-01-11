@@ -1,0 +1,42 @@
+{
+    "$schema": "../schema.json",
+    "name": "Bolt.diy",
+    "id": "bolt",
+    "available": true,
+    "short_desc": "AI-powered full-stack web development directly in your browser",
+    "author": "stackblitz-labs",
+    "port": 5173,
+    "categories": ["development", "ai"],
+    "description": "An AI coding assistant supporting multiple LLM providers",
+    "tipi_version": 3,
+    "version": "0.0.5",
+    "source": "https://github.com/stackblitz-labs/bolt.diy",
+    "exposable": true,
+    "form_fields": [
+      {
+        "type": "password",
+        "label": "OpenAI API Key",
+        "hint": "Required for using OpenAI models",
+        "required": false,
+        "env_variable": "OPENAI_API_KEY"
+      },
+      {
+        "type": "password",
+        "label": "Anthropic API Key",
+        "hint": "Required for using Claude models",
+        "required": false,
+        "env_variable": "ANTHROPIC_API_KEY"
+      },
+      {
+        "type": "text",
+        "label": "Ollama API Base URL",
+        "hint": "URL for local Ollama instance",
+        "default": "http://localhost:11434",
+        "required": false,
+        "env_variable": "OLLAMA_API_BASE_URL"
+      }
+    ],
+    "supported_architectures": ["amd64", "arm64"],
+    "created_at": 1724134338800,
+    "updated_at": 1724134338800
+  }

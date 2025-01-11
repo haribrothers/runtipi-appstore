@@ -1,0 +1,39 @@
+version: '3.9'
+services:
+  bolt:
+    container_name: bolt
+    build:
+      context: https://github.com/stackblitz-labs/bolt.diy.git#main
+      dockerfile: Dockerfile
+      target: bolt-ai-production
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - TZ=${TZ}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - OLLAMA_API_BASE_URL=${OLLAMA_API_BASE_URL}
+      - VITE_LOG_LEVEL=debug
+      - DEFAULT_NUM_CTX=32768
+      - RUNNING_IN_DOCKER=true
+    volumes:
+      - ${APP_DATA_DIR}/data:/app/data
+    networks:
+      - tipi_main_network
+    labels:
+      traefik.enable: true
+      traefik.http.middlewares.bolt-web-redirect.redirectscheme.scheme: https
+      traefik.http.services.bolt.loadbalancer.server.port: 5173
+      traefik.http.routers.bolt-local-insecure.rule: Host(`bolt.${LOCAL_DOMAIN}`)
+      traefik.http.routers.bolt-local-insecure.entrypoints: web
+      traefik.http.routers.bolt-local-insecure.service: bolt
+      traefik.http.routers.bolt-local-insecure.middlewares: bolt-web-redirect
+      traefik.http.routers.bolt-local.rule: Host(`bolt.${LOCAL_DOMAIN}`)
+      traefik.http.routers.bolt-local.entrypoints: websecure
+      traefik.http.routers.bolt-local.service: bolt
+      traefik.http.routers.bolt-local.tls: true
+
+networks:
+  tipi_main_network:
+    external: true
+    name: runtipi_tipi_main_network

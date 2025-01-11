@@ -1,0 +1,10 @@
+{
+    "services": [
+      {
+        "name": "bolt",
+        "image": "bolt-ai:production",
+        "isMain": true,
+        "internalPort": 5173
+      }
+    ]
+  }
