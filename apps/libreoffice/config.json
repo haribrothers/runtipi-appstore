@@ -3,33 +3,23 @@
   "name": "LibreOffice",
   "id": "libreoffice",
   "available": true,
-  "short_desc": "Free and open source office suite",
+  "short_desc": "Free and open source office suite with GUI access",
   "author": "LibreOffice",
   "port": 3000,
-  "categories": ["utilities", "development"],
-  "description": "Web-based LibreOffice for document editing",
+  "categories": ["utilities"],
+  "description": "LibreOffice with noVNC web access",
   "tipi_version": 3,
   "version": "latest",
-  "source": "https://github.com/libreoffice/online",
+  "source": "https://github.com/linuxserver/docker-libreoffice",
   "exposable": true,
   "form_fields": [
     {
-      "type": "text",
-      "label": "Username",
-      "hint": "Username for accessing LibreOffice",
-      "required": true,
-      "min": 3,
-      "max": 50,
-      "env_variable": "LIBREOFFICE_USERNAME"
-    },
-    {
       "type": "password",
-      "label": "Password",
-      "hint": "Password for accessing LibreOffice",
+      "label": "VNC Password",
+      "hint": "Password for accessing the LibreOffice interface (minimum 8 characters)",
       "required": true,
       "min": 8,
-      "max": 50,
-      "env_variable": "LIBREOFFICE_PASSWORD"
+      "env_variable": "VNC_PASSWORD"
     }
   ],
   "supported_architectures": ["amd64", "arm64"],
