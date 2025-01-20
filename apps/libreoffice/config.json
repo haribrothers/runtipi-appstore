@@ -1,0 +1,38 @@
+{
+  "$schema": "../schema.json",
+  "name": "LibreOffice",
+  "id": "libreoffice",
+  "available": true,
+  "short_desc": "Free and open source office suite",
+  "author": "LibreOffice",
+  "port": 3000,
+  "categories": ["utilities", "development"],
+  "description": "Web-based LibreOffice for document editing",
+  "tipi_version": 3,
+  "version": "latest",
+  "source": "https://github.com/libreoffice/online",
+  "exposable": true,
+  "form_fields": [
+    {
+      "type": "text",
+      "label": "Username",
+      "hint": "Username for accessing LibreOffice",
+      "required": true,
+      "min": 3,
+      "max": 50,
+      "env_variable": "LIBREOFFICE_USERNAME"
+    },
+    {
+      "type": "password",
+      "label": "Password",
+      "hint": "Password for accessing LibreOffice",
+      "required": true,
+      "min": 8,
+      "max": 50,
+      "env_variable": "LIBREOFFICE_PASSWORD"
+    }
+  ],
+  "supported_architectures": ["amd64", "arm64"],
+  "created_at": 1724134338800,
+  "updated_at": 1724134338800
+}

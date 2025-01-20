@@ -1,0 +1,10 @@
+{
+  "services": [
+    {
+      "name": "libreoffice",
+      "image": "linuxserver/libreoffice:latest",
+      "isMain": true,
+      "internalPort": 3000
+    }
+  ]
+}

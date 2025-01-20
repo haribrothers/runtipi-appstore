@@ -1,0 +1,36 @@
+version: '3.9'
+services:
+  libreoffice:
+    container_name: libreoffice
+    image: collabora/code:latest
+    restart: unless-stopped
+    environment:
+      - TZ=${TZ}
+      - username=${LIBREOFFICE_USERNAME}
+      - password=${LIBREOFFICE_PASSWORD}
+      - extra_params=--o:ssl.enable=false --o:ssl.termination=true
+      - DONT_GEN_SSL_CERT=true
+    cap_add:
+      - MKNOD
+    volumes:
+      - ${APP_DATA_DIR}/data:/config
+      - ${APP_DATA_DIR}/documents:/documents
+    networks:
+      - tipi_main_network
+    labels:
+      traefik.enable: true
+      traefik.http.middlewares.libreoffice-web-redirect.redirectscheme.scheme: https
+      traefik.http.services.libreoffice.loadbalancer.server.port: 9980
+      traefik.http.routers.libreoffice-local-insecure.rule: Host(`libreoffice.${LOCAL_DOMAIN}`)
+      traefik.http.routers.libreoffice-local-insecure.entrypoints: web
+      traefik.http.routers.libreoffice-local-insecure.service: libreoffice
+      traefik.http.routers.libreoffice-local-insecure.middlewares: libreoffice-web-redirect
+      traefik.http.routers.libreoffice-local.rule: Host(`libreoffice.${LOCAL_DOMAIN}`)
+      traefik.http.routers.libreoffice-local.entrypoints: websecure
+      traefik.http.routers.libreoffice-local.service: libreoffice
+      traefik.http.routers.libreoffice-local.tls: true
+
+networks:
+  tipi_main_network:
+    external: true
+    name: runtipi_tipi_main_network
