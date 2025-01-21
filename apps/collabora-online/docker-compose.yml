@@ -1,0 +1,37 @@
+version: '3.9'
+services:
+  collabora:
+    container_name: collabora
+    image: collabora/code:latest
+    restart: unless-stopped
+    ports:
+      - ${APP_PORT}:9980
+    environment:
+      - TZ=${TZ}
+      - domain=collabora\\.${LOCAL_DOMAIN}
+      - username=${COLLABORA_ADMIN_USER}
+      - password=${COLLABORA_ADMIN_PASS}
+      - server_name=collabora.${LOCAL_DOMAIN}
+      - extra_params=--o:ssl.enable=false --o:ssl.termination=true --o:net.frame_ancestors=${FRAME_ANCESTORS:-*}
+      - DONT_GEN_SSL_CERT=true
+    cap_add:
+      - MKNOD
+    networks:
+      - tipi_main_network
+    labels:
+      traefik.enable: true
+      traefik.http.middlewares.collabora-web-redirect.redirectscheme.scheme: https
+      traefik.http.services.collabora.loadbalancer.server.port: 9980
+      traefik.http.routers.collabora-local-insecure.rule: Host(`collabora.${LOCAL_DOMAIN}`)
+      traefik.http.routers.collabora-local-insecure.entrypoints: web
+      traefik.http.routers.collabora-local-insecure.service: collabora
+      traefik.http.routers.collabora-local-insecure.middlewares: collabora-web-redirect
+      traefik.http.routers.collabora-local.rule: Host(`collabora.${LOCAL_DOMAIN}`)
+      traefik.http.routers.collabora-local.entrypoints: websecure
+      traefik.http.routers.collabora-local.service: collabora
+      traefik.http.routers.collabora-local.tls: true
+
+networks:
+  tipi_main_network:
+    external: true
+    name: runtipi_tipi_main_network

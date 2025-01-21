@@ -1,0 +1,36 @@
+{
+  "$schema": "../schema.json",
+  "name": "Collabora Online",
+  "id": "collabora",
+  "available": true,
+  "short_desc": "Web-based office suite based on LibreOffice",
+  "author": "Collabora",
+  "port": 9980,
+  "categories": ["utilities", "development"],
+  "description": "Online office suite for document editing and collaboration",
+  "tipi_version": 3,
+  "version": "latest",
+  "source": "https://github.com/CollaboraOnline/online",
+  "exposable": true,
+  "form_fields": [
+    {
+      "type": "text",
+      "label": "Admin Username",
+      "hint": "Username for admin access",
+      "required": true,
+      "min": 3,
+      "env_variable": "COLLABORA_ADMIN_USER"
+    },
+    {
+      "type": "password",
+      "label": "Admin Password",
+      "hint": "Password for admin access",
+      "required": true,
+      "min": 8,
+      "env_variable": "COLLABORA_ADMIN_PASS"
+    }
+  ],
+  "supported_architectures": ["amd64", "arm64"],
+  "created_at": 1724134338800,
+  "updated_at": 1724134338800
+}

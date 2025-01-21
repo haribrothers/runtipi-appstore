@@ -1,0 +1,10 @@
+{
+  "services": [
+    {
+      "name": "collabora",
+      "image": "collabora/code:latest",
+      "isMain": true,
+      "internalPort": 9980
+    }
+  ]
+}
